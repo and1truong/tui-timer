@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	appName    = "tui-timer-timer"
+	appName    = "tui-timer"
 	configFile = "config.yaml"
 )
 
