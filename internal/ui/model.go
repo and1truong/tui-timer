@@ -92,6 +92,22 @@ func (m Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	case key.Matches(msg, m.keys.Config):
 		return m, m.openConfig()
+
+	case key.Matches(msg, m.keys.TimeUp):
+		m.engine.AdjustTime(time.Minute)
+		return m, nil
+
+	case key.Matches(msg, m.keys.TimeDown):
+		m.engine.AdjustTime(-time.Minute)
+		return m, nil
+
+	case key.Matches(msg, m.keys.TimeRight):
+		m.engine.AdjustTime(10 * time.Minute)
+		return m, nil
+
+	case key.Matches(msg, m.keys.TimeLeft):
+		m.engine.AdjustTime(-10 * time.Minute)
+		return m, nil
 	}
 
 	return m, nil

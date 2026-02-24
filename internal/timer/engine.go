@@ -108,6 +108,35 @@ func (e *Engine) Tick() Event {
 	return EventTick
 }
 
+// AdjustTime adds delta to both Remaining and the current mode's duration.
+// Remaining is clamped to [1s, currentDuration].
+func (e *Engine) AdjustTime(delta time.Duration) {
+	switch e.Mode {
+	case ModeWork:
+		e.WorkDuration += delta
+		if e.WorkDuration < time.Minute {
+			e.WorkDuration = time.Minute
+		}
+	case ModeShortBreak:
+		e.ShortBreak += delta
+		if e.ShortBreak < time.Minute {
+			e.ShortBreak = time.Minute
+		}
+	case ModeLongBreak:
+		e.LongBreak += delta
+		if e.LongBreak < time.Minute {
+			e.LongBreak = time.Minute
+		}
+	}
+	e.Remaining += delta
+	if e.Remaining < time.Second {
+		e.Remaining = time.Second
+	}
+	if max := e.currentDuration(); e.Remaining > max {
+		e.Remaining = max
+	}
+}
+
 // Progress returns a value from 0.0 to 1.0.
 func (e *Engine) Progress() float64 {
 	total := e.currentDuration()

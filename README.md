@@ -1,43 +1,47 @@
-# Podomoro Timer
+# tui-timer
 
-A production-grade terminal Pomodoro timer TUI built with Go, Bubbletea, and Lipgloss.
+A terminal Pomodoro timer TUI built with Go, Bubbletea, and Lipgloss.
 
 ## Install
 
 ```bash
-go install github.com/htruong/podomoro/cmd/podomoro@latest
+go install github.com/and1truong/tui-timer/cmd/tui-timer@latest
 ```
 
 Or build from source:
 
 ```bash
-git clone https://github.com/htruong/podomoro.git
-cd podomoro
-go build -o podomoro ./cmd/podomoro
+git clone https://github.com/and1truong/tui-timer.git
+cd tui-timer
+make build
 ```
 
 ## Usage
 
 ```bash
-podomoro
-podomoro --work 50m
-podomoro --work 50m --voice Alex
-podomoro --short-break 10m --long-break 20m
+tui-timer
+tui-timer --work 50m
+tui-timer --work 50m --voice Alex
+tui-timer --short-break 10m --long-break 20m
 ```
 
 ## Keybindings
 
-| Key     | Action       |
-|---------|-------------|
-| `space` | Start/Pause |
-| `r`     | Reset       |
-| `s`     | Skip        |
-| `c`     | Open config in $EDITOR |
-| `q`     | Quit        |
+| Key            | Action           |
+|----------------|-----------------|
+| `space`        | Start/Pause      |
+| `r`            | Reset            |
+| `s`            | Skip             |
+| `c`            | Open config in $EDITOR |
+| `shift+↑`      | +1 minute        |
+| `shift+↓`      | -1 minute        |
+| `shift+→`      | +10 minutes      |
+| `shift+←`      | -10 minutes      |
+| `q`            | Quit             |
 
 ## Config
 
-Path: `~/.config/podomoro-timer/config.yaml`
+Path: `~/.config/tui-timer/config.yaml`
 
 Auto-created on first run with defaults:
 
@@ -84,12 +88,12 @@ Common voices: Samantha, Alex, Victoria, Daniel, Karen, Moira, Tessa.
 
 ## Logging
 
-Session logs are written to `~/.local/share/podomoro-timer/log.txt`.
+Session logs are written to `~/.local/share/tui-timer/log.txt`.
 
 ## Project Structure
 
 ```
-cmd/podomoro/main.go       — Entry point
+cmd/tui-timer/main.go      — Entry point
 internal/config/config.go  — YAML config + CLI flags
 internal/timer/engine.go   — Timer state machine
 internal/sound/sound.go    — Sound interface + macOS impl
